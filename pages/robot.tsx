@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import BasicLayout from "@/layouts/BasicLayout";
 
 const meta = {
@@ -31,23 +31,26 @@ const Robot: NextPage = () => {
     });
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
-    // @ts-ignore
+
+    // eslint-disable-next-line no-console
+    console.log(form);
+
     e.target.reset();
   };
 
   return (
     <BasicLayout meta={meta}>
       <div className="layout">
-        <h3 className="font-bold mb-6">Predict your next month bond price</h3>
-        <form onSubmit={handleSubmit} className="w-full grid grid-cols-2 gap-4">
+        <h3 className="mb-6 font-bold">Predict your next month bond price</h3>
+        <form onSubmit={handleSubmit} className="grid w-full grid-cols-2 gap-4">
           <div className="mb-10">
-            <h4 className="text-gray-600 dark:text-gray-300 font-bold">
+            <h4 className="font-bold text-gray-600 dark:text-gray-300">
               Rating
             </h4>
             <select
-              className="w-full border mt-3 p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-700 dark:focus:ring-gray-500 dark:border-gray-700 dark:bg-gray-900"
+              className="w-full p-3 mt-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-700 dark:focus:ring-gray-500 dark:border-gray-700 dark:bg-gray-900"
               name="rating"
               onChange={handleChange}
             >
@@ -63,11 +66,11 @@ const Robot: NextPage = () => {
             </select>
           </div>
           <div className="mb-10">
-            <h4 className="text-gray-600 dark:text-gray-300 font-bold">
+            <h4 className="font-bold text-gray-600 dark:text-gray-300">
               Maturity Date
             </h4>
             <input
-              className="w-full border mt-3 p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-700 dark:focus:ring-gray-500 dark:border-gray-700 dark:bg-gray-900"
+              className="w-full p-3 mt-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-700 dark:focus:ring-gray-500 dark:border-gray-700 dark:bg-gray-900"
               type="date"
               name="maturity_date"
               onChange={handleChange}
@@ -75,11 +78,11 @@ const Robot: NextPage = () => {
             />
           </div>
           <div className="mb-10">
-            <h4 className="text-gray-600 dark:text-gray-300 font-bold">
+            <h4 className="font-bold text-gray-600 dark:text-gray-300">
               Coupon Rate
             </h4>
             <input
-              className="w-full border mt-3 p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-700 dark:focus:ring-gray-500 dark:border-gray-700 dark:bg-gray-900"
+              className="w-full p-3 mt-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-700 dark:focus:ring-gray-500 dark:border-gray-700 dark:bg-gray-900"
               type="number"
               name="coupon_rate"
               step=".0001"
@@ -88,11 +91,11 @@ const Robot: NextPage = () => {
             />
           </div>
           <div className="mb-10">
-            <h4 className="text-gray-600 dark:text-gray-300 font-bold">
+            <h4 className="font-bold text-gray-600 dark:text-gray-300">
               Accrued Interest
             </h4>
             <input
-              className="w-full border mt-3 p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-700 dark:focus:ring-gray-500 dark:border-gray-700 dark:bg-gray-900"
+              className="w-full p-3 mt-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-700 dark:focus:ring-gray-500 dark:border-gray-700 dark:bg-gray-900"
               type="number"
               name="accrued_interest"
               step=".01"
@@ -101,11 +104,11 @@ const Robot: NextPage = () => {
             />
           </div>
           <div className="mb-10">
-            <h4 className="text-gray-600 dark:text-gray-300 font-bold">
+            <h4 className="font-bold text-gray-600 dark:text-gray-300">
               Frequency of Interest
             </h4>
             <input
-              className="w-full border mt-3 p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-700 dark:focus:ring-gray-500 dark:border-gray-700 dark:bg-gray-900"
+              className="w-full p-3 mt-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-700 dark:focus:ring-gray-500 dark:border-gray-700 dark:bg-gray-900"
               type="number"
               name="frequency_of_interest"
               step=".01"
@@ -114,11 +117,11 @@ const Robot: NextPage = () => {
             />
           </div>
           <div className="mb-10">
-            <h4 className="text-gray-600 dark:text-gray-300 font-bold">
+            <h4 className="font-bold text-gray-600 dark:text-gray-300">
               Current Price
             </h4>
             <input
-              className="w-full border mt-3 p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-700 dark:focus:ring-gray-500 dark:border-gray-700 dark:bg-gray-900"
+              className="w-full p-3 mt-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-700 dark:focus:ring-gray-500 dark:border-gray-700 dark:bg-gray-900"
               type="number"
               name="current_price"
               step=".0001"
@@ -127,11 +130,11 @@ const Robot: NextPage = () => {
             />
           </div>
           <div className="mb-10">
-            <h4 className="text-gray-600 dark:text-gray-300 font-bold">
+            <h4 className="font-bold text-gray-600 dark:text-gray-300">
               Yield-To-Maturity
             </h4>
             <input
-              className="w-full border mt-3 p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-700 dark:focus:ring-gray-500 dark:border-gray-700 dark:bg-gray-900"
+              className="w-full p-3 mt-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-700 dark:focus:ring-gray-500 dark:border-gray-700 dark:bg-gray-900"
               type="number"
               name="yield_to_maturity"
               step=".01"
@@ -140,22 +143,22 @@ const Robot: NextPage = () => {
             />
           </div>
           <div className="mb-10">
-            <h4 className="text-gray-600 dark:text-gray-300 font-bold">
+            <h4 className="font-bold text-gray-600 dark:text-gray-300">
               Maturity
             </h4>
             <input
-              className="w-full border mt-3 p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-700 dark:focus:ring-gray-500 dark:border-gray-700 dark:bg-gray-900"
+              className="w-full p-3 mt-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-700 dark:focus:ring-gray-500 dark:border-gray-700 dark:bg-gray-900"
               type="date"
               name="maturity"
               onChange={handleChange}
             />
           </div>
           <div className="mb-10">
-            <h4 className="text-gray-600 dark:text-gray-300 font-bold">
+            <h4 className="font-bold text-gray-600 dark:text-gray-300">
               Duration
             </h4>
             <input
-              className="w-full border mt-3 p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-700 dark:focus:ring-gray-500 dark:border-gray-700 dark:bg-gray-900"
+              className="w-full p-3 mt-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-700 dark:focus:ring-gray-500 dark:border-gray-700 dark:bg-gray-900"
               type="number"
               name="duration"
               step=".001"
@@ -166,7 +169,7 @@ const Robot: NextPage = () => {
         </form>
         <div className="w-full">
           <button
-            className="py-2 w-full px-4 rounded-md border dark:border-gray-700"
+            className="w-full px-4 py-2 border rounded-md dark:border-gray-700"
             type="submit"
           >
             Predict

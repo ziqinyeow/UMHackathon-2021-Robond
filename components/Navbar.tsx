@@ -11,9 +11,13 @@ const Navbar = () => {
   useEffect(() => setMounted(true), []);
 
   return (
-    <nav className="nav sticky_nav border-b dark:border-gray-700">
+    <nav className="border-b nav sticky_nav dark:border-gray-700">
       <div>
-        <h2 className="font-handwriting">Robond</h2>
+        <NextLink href="/">
+          <a>
+            <h2 className="font-handwriting">Robond</h2>
+          </a>
+        </NextLink>
       </div>
       <div className="flex">
         <NextLink href="/">
@@ -81,6 +85,14 @@ const Navbar = () => {
             )}
           </a>
         </NextLink>
+        {/* <NextLink href="/upload">
+          <a className="p-4">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24">
+              <path d="M11 15h2V9h3l-4-5-4 5h3z" />
+              <path d="M20 18H4v-7H2v7c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2v-7h-2v7z" />
+            </svg>
+          </a>
+        </NextLink> */}
         <button
           aria-label="Toggle Dark Mode"
           type="button"

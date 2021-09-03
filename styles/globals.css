@@ -77,3 +77,24 @@ html {
   z-index: 9;
   top: 100px;
 }
+
+.CircularProgressbar {
+  width: 100%;
+  vertical-align: middle;
+}
+
+.CircularProgressbar .CircularProgressbar-path {
+  stroke-linecap: round;
+  -webkit-transition: stroke-dashoffset 0.5s ease 0s;
+  transition: stroke-dashoffset 0.5s ease 0s;
+}
+
+.CircularProgressbar .CircularProgressbar-trail {
+  stroke-linecap: round;
+}
+
+.CircularProgressbar .CircularProgressbar-text {
+  font-size: 20px;
+  dominant-baseline: middle;
+  text-anchor: middle;
+}

@@ -1,4 +1,4 @@
-const { spacing, fontFamily } = require("tailwindcss/defaultTheme");
+const { fontFamily } = require("tailwindcss/defaultTheme");
 
 module.exports = {
   purge: [
@@ -12,6 +12,14 @@ module.exports = {
       fontFamily: {
         sans: ["Merriweather", fontFamily.serif],
         handwriting: ["Sacramento", fontFamily.serif],
+      },
+      colors: {
+        primary: {
+          100: "#8833ff",
+          200: "#f9ac25",
+          300: "#2BEBC8",
+          400: "#8833ff",
+        },
       },
     },
   },

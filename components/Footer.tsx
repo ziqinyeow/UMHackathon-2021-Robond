@@ -1,12 +1,18 @@
-import React from "react";
+import Link from "next/link";
 
-const Footer: React.FC = () => {
+const Footer = () => {
   return (
-    <div className="w-full pt-12 pb-8 border-t dark:border-gray-700 text-gray-500 dark:text-gray-300 flex justify-between items-center">
+    <div className="flex items-center justify-between w-full pt-12 pb-8 text-gray-500 border-t dark:border-gray-700 dark:text-gray-300">
       <div>
-        <h5>Made with ❤ in Malaysia and worldwide</h5>
+        <h5>
+          Made with{" "}
+          <Link href="/feedback">
+            <a className="select-none">❤</a>
+          </Link>{" "}
+          in Malaysia and worldwide
+        </h5>
       </div>
-      <div>
+      <div className="flex">
         <div className="p-1 mx-2 rounded hover:bg-gray-100 dark:hover:bg-transparent">
           <a
             href="https://github.com/ziqinyeow"
