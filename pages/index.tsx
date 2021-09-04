@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import Link from "next/link";
 import BasicLayout from "@/layouts/BasicLayout";
+import OPRCard from "@/components/OPRCard";
 
 const meta = {
   type: "",
@@ -52,7 +53,7 @@ const data = [
   },
 ];
 
-const Home: NextPage = () => {
+const getNextMonth = () => {
   const now = new Date();
   let current;
   if (now.getMonth() === 11) {
@@ -60,18 +61,28 @@ const Home: NextPage = () => {
   } else {
     current = new Date(now.getFullYear(), now.getMonth() + 1, 1);
   }
+  return current.toLocaleString("en-us", {
+    month: "short",
+    year: "numeric",
+  });
+};
+interface Props {
+  OprLevel: number;
+  OPRLevelLastUpdated: Date;
+}
+
+const Home: NextPage<Props> = () => {
   return (
     <BasicLayout meta={meta}>
       <div className="layout">
         <div className="w-full grid-cols-5 gap-5 mb-6 sm:grid">
           <div className="col-span-3">
-            <div className="flex justify-between">
-              <h4 className="mb-3 font-bold">Trending</h4>
-              <h4 className="text-gray-500">
-                {current.toLocaleString("en-us", {
-                  month: "short",
-                  year: "numeric",
-                })}
+            <div className="flex justify-between mb-3">
+              <h4 className="font-bold">
+                Trending Bond{" "}
+                <span className="text-gray-300 dark:text-gray-600">
+                  in {getNextMonth()}
+                </span>
               </h4>
             </div>
             {data.map((d, index) => (
@@ -100,12 +111,9 @@ const Home: NextPage = () => {
             ))}
           </div>
           <div className="col-span-2 mb-6">
-            <h4 className="mb-3 font-bold">News</h4>
-            <div className="border-2 rounded-md dark:border-gray-700">
-              <div className="p-4">
-                <h5 className="font-semibold">Fixed Bond Rate roses 15%</h5>
-                <h6>Recently</h6>
-              </div>
+            <h4 className="mb-3 font-bold">Announcement</h4>
+            <div>
+              <OPRCard />
             </div>
           </div>
         </div>

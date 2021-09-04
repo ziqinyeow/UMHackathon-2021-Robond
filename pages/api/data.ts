@@ -5,46 +5,26 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  if (req.method !== "POST") {
+    return res.status(400).json({ error: "invalid" });
+  }
   try {
     const data = await fetch(
       "http://20.37.40.201:80/api/v1/service/myservice/score",
       {
         method: "POST",
+        // @ts-ignore
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Bearer lH5jefeVKSXaA7iTBJ5W2y8w9bzEspP7",
+          // prettier-ignore
+          "Authorization": process.env.AUTHORIZATION_HEADER,
         },
-        body: JSON.stringify([
-          {
-            "STOCK CODE": "123",
-            AINTEREST: 123,
-            "COUPON FREQUENCY": 2,
-            "EVAL MID PRICE": 123,
-            "EVAL MID YIELD": 123,
-            "MODIFIED DURATION": 123,
-            "NEXT COUPON RATE": 0,
-            "DAYS TO MATURITY": 123,
-            "CREDIT SPREAD": 12,
-            "OPR MOVEMENT": 3,
-            RATING: "AAA",
-          },
-          {
-            "STOCK CODE": "1234",
-            AINTEREST: 123,
-            "COUPON FREQUENCY": 2,
-            "EVAL MID PRICE": 123,
-            "EVAL MID YIELD": 123,
-            "MODIFIED DURATION": 123,
-            "NEXT COUPON RATE": 0,
-            "DAYS TO MATURITY": 123,
-            "CREDIT SPREAD": 12,
-            "OPR MOVEMENT": 3,
-            RATING: "AAA",
-          },
-        ]),
+        body: req.body,
       }
     );
-    return res.status(200).json({ data });
+    const result = await data.json();
+
+    return res.status(200).json({ result });
   } catch (error) {
     return res.status(400).json({ error });
   }

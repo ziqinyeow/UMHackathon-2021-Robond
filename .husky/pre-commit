@@ -3,6 +3,8 @@
 
 echo '🏗️👷 Styling, testing and building your project before committing'
 
+npm run style:format
+
 # Check Prettier standards
 npm run style:prettier ||
 (
@@ -12,7 +14,7 @@ npm run style:prettier ||
 )
 
 # Check ESLint Standards and fix the staging area
-(npm run style:lint && npx lint-staged) ||
+(npm run style:lint) ||
 (
         echo '😤🏀👋😤 Get that weak shit out of here! 😤🏀👋😤 
                 ESLint Check Failed. Make the required changes listed above, add changes and try to commit again.'

@@ -10,7 +10,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Merriweather", fontFamily.serif],
+        inter: ["Inter", fontFamily.sans],
         handwriting: ["Sacramento", fontFamily.serif],
       },
       colors: {
