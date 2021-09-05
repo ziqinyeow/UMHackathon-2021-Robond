@@ -14,7 +14,7 @@ npm run style:prettier ||
 )
 
 # Check ESLint Standards and fix the staging area
-(npm run style:lint) ||
+(npm run style:lint && npx lint-staged) ||
 (
         echo '😤🏀👋😤 Get that weak shit out of here! 😤🏀👋😤 
                 ESLint Check Failed. Make the required changes listed above, add changes and try to commit again.'

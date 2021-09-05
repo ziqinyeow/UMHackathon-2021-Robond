@@ -25,6 +25,7 @@ interface Form {
 
 const Robot: NextPage = () => {
   const [form, setForm] = useState<Form>();
+  const [nextMonthBondPrice, setNextMonthBondPrice] = useState(0);
 
   const handleChange = (e: ChangeEvent<HTMLElement>) => {
     // @ts-ignore
@@ -40,32 +41,32 @@ const Robot: NextPage = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
-    const fetcher = await fetch("/api/data", {
+    const fetcher = await fetch("/api/predict", {
       method: "POST",
       body: JSON.stringify([form]),
     });
     const predictedResult = await fetcher.json();
-
     const result = JSON.parse(predictedResult?.result)[0].FUTURE;
-    // eslint-disable-next-line no-console
-    console.log("predicted result", result);
+
+    setNextMonthBondPrice(result);
 
     e.target.reset();
   };
 
   return (
     <BasicLayout meta={meta}>
-      <div className="layout">
+      <div className="relative layout">
         <h3 className="mb-6 font-bold">Predict your next month bond price</h3>
         <form onSubmit={handleSubmit} className="grid w-full grid-cols-2 gap-4">
           <div className="mb-10">
             <h4 className="font-bold text-gray-600 dark:text-gray-300">
-              STOCK CODE
+              Stock Code
             </h4>
             <input
               className="w-full p-3 mt-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-700 dark:focus:ring-gray-500 dark:border-gray-700 dark:bg-gray-900"
-              type="text"
+              type="number"
               name="STOCK CODE"
+              step=".1"
               onChange={handleChange}
               required
             />
@@ -98,7 +99,7 @@ const Robot: NextPage = () => {
           </div>
           <div className="mb-10">
             <h4 className="font-bold text-gray-600 dark:text-gray-300">
-              EVAL MID PRICE
+              Eval Mid Price
             </h4>
             <input
               className="w-full p-3 mt-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-700 dark:focus:ring-gray-500 dark:border-gray-700 dark:bg-gray-900"
@@ -111,7 +112,7 @@ const Robot: NextPage = () => {
           </div>
           <div className="mb-10">
             <h4 className="font-bold text-gray-600 dark:text-gray-300">
-              EVAL MID YIELD
+              Eval Mid Yield
             </h4>
             <input
               className="w-full p-3 mt-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-700 dark:focus:ring-gray-500 dark:border-gray-700 dark:bg-gray-900"
@@ -137,7 +138,7 @@ const Robot: NextPage = () => {
           </div>
           <div className="mb-10">
             <h4 className="font-bold text-gray-600 dark:text-gray-300">
-              NEXT COUPON RATE
+              Next Coupon Rate
             </h4>
             <input
               className="w-full p-3 mt-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-700 dark:focus:ring-gray-500 dark:border-gray-700 dark:bg-gray-900"
@@ -150,7 +151,7 @@ const Robot: NextPage = () => {
           </div>
           <div className="mb-10">
             <h4 className="font-bold text-gray-600 dark:text-gray-300">
-              DAYS TO MATURITY
+              Days to Maturity
             </h4>
             <input
               className="w-full p-3 mt-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-700 dark:focus:ring-gray-500 dark:border-gray-700 dark:bg-gray-900"
@@ -163,7 +164,7 @@ const Robot: NextPage = () => {
           </div>
           <div className="mb-10">
             <h4 className="font-bold text-gray-600 dark:text-gray-300">
-              CREDIT SPREAD
+              Credit Spread
             </h4>
             <input
               className="w-full p-3 mt-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-700 dark:focus:ring-gray-500 dark:border-gray-700 dark:bg-gray-900"
@@ -176,7 +177,7 @@ const Robot: NextPage = () => {
           </div>
           <div className="mb-10">
             <h4 className="font-bold text-gray-600 dark:text-gray-300">
-              OPR MOVEMENT
+              OPR Movement
             </h4>
             <input
               className="w-full p-3 mt-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-700 dark:focus:ring-gray-500 dark:border-gray-700 dark:bg-gray-900"
@@ -216,6 +217,30 @@ const Robot: NextPage = () => {
             </button>
           </div>
         </form>
+        {nextMonthBondPrice !== 0 && (
+          <div className="fixed top-0 left-0 flex items-center justify-center w-full h-full">
+            <div className="relative flex items-center justify-center p-20 text-center bg-white rounded shadow-2xl dark:bg-gray-900">
+              <h3>Next Month Bond Price: {nextMonthBondPrice}</h3>
+              <button
+                type="button"
+                onClick={() => setNextMonthBondPrice(0)}
+                className="absolute top-0 right-0 px-3 py-1 bg-primary-100 hover:bg-primary-300 text-gray-50"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="currentColor"
+                    d="m16.192 6.344-4.243 4.242-4.242-4.242-1.414 1.414L10.535 12l-4.242 4.242 1.414 1.414 4.242-4.242 4.243 4.242 1.414-1.414L13.364 12l4.242-4.242z"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </BasicLayout>
   );

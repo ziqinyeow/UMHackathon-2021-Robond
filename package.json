@@ -23,6 +23,7 @@
     "chart.js": "^3.5.1",
     "next": "11.1.2",
     "next-themes": "0.0.15",
+    "papaparse": "^5.3.1",
     "react": "17.0.2",
     "react-chartjs-2": "^3.0.4",
     "react-circular-progressbar": "^2.0.4",
@@ -32,6 +33,7 @@
   },
   "devDependencies": {
     "@types/node": "^16.7.10",
+    "@types/papaparse": "^5.2.6",
     "@types/react": "17.0.19",
     "@types/react-dom": "^17.0.9",
     "@typescript-eslint/eslint-plugin": "^4.30.0",

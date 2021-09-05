@@ -15,7 +15,7 @@ const Footer = () => {
       <div className="flex">
         <div className="p-1 mx-2 rounded hover:bg-gray-100 dark:hover:bg-transparent">
           <a
-            href="https://github.com/ziqinyeow"
+            href="https://github.com/ziqinyeow/finance-bond-prediction-app-v2"
             target="_blank"
             rel="noopener noreferrer"
           >
