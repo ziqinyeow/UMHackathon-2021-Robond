@@ -3,24 +3,31 @@ import { useTheme } from "next-themes";
 
 interface Props {
   title1: string;
-  xAxis: string[];
-  yAxis1: number[];
+  xAxis?: string[];
+  yAxis1?: number[];
   title2: string;
-  yAxis2: number[];
+  yAxis2?: number[];
 }
 
-const BarChart = ({ title1, xAxis, yAxis1, title2, yAxis2 }: Props) => {
+const BarChart: React.FC<Props> = ({
+  title1,
+  xAxis,
+  yAxis1,
+  title2,
+  yAxis2,
+}) => {
   const { resolvedTheme } = useTheme();
   let count = 0;
-  for (let i = 0; i < yAxis1.length; i += 1) {
-    if (yAxis1[i]) {
+  // @ts-ignore
+  for (let i = 0; i < yAxis1?.length; i += 1) {
+    if (yAxis1?.[i]) {
       count = i;
       break;
     }
   }
-  const x = xAxis.slice(count);
-  const y1 = yAxis1.slice(count);
-  const y2 = yAxis2.slice(count);
+  const x = xAxis?.slice(count);
+  const y1 = yAxis1?.slice(count);
+  const y2 = yAxis2?.slice(count);
 
   return (
     <div className="w-full h-full dark:text-white">

@@ -34,7 +34,12 @@ const Robot: NextPage = () => {
     setForm({
       ...form,
       [name]:
-        name === "RATING" || name === "STOCK CODE" ? value : Number(value),
+      // eslint-disable-next-line no-nested-ternary
+        name === "RATING" || name === "STOCK CODE"
+          ? value
+          : name !== "DAYS TO MATURITY"
+          ? Number(value)
+          : (new Date().getTime() - new Date(value).getTime()) / 86400000,
     });
   };
 
@@ -151,11 +156,11 @@ const Robot: NextPage = () => {
           </div>
           <div className="mb-10">
             <h4 className="font-bold text-gray-600 dark:text-gray-300">
-              Days to Maturity
+              Maturity Date
             </h4>
             <input
               className="w-full p-3 mt-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-700 dark:focus:ring-gray-500 dark:border-gray-700 dark:bg-gray-900"
-              type="number"
+              type="date"
               name="DAYS TO MATURITY"
               step="1"
               onChange={handleChange}
@@ -220,7 +225,11 @@ const Robot: NextPage = () => {
         {nextMonthBondPrice !== 0 && (
           <div className="fixed top-0 left-0 flex items-center justify-center w-full h-full">
             <div className="relative flex items-center justify-center p-20 text-center bg-white rounded shadow-2xl dark:bg-gray-900">
-              <h3>Next Month Bond Price: {nextMonthBondPrice}</h3>
+              <h3>
+                {nextMonthBondPrice > 0
+                  ? `Next Month Bond Price: ${nextMonthBondPrice}`
+                  : "Please input a valid data"}
+              </h3>
               <button
                 type="button"
                 onClick={() => setNextMonthBondPrice(0)}

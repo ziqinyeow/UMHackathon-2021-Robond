@@ -43,28 +43,30 @@ export default async function handler(
   const blobClient3 = containerClient.getBlobClient(latestData[2]);
   const blockBlobClient3 = blobClient3.getBlockBlobClient();
 
+  const month = latestData[0];
+
   try {
     const downloadBlockBlobResponse1 = await blockBlobClient1.download(0);
     const text = await streamToString(
       downloadBlockBlobResponse1.readableStreamBody
     );
     // @ts-ignore
-    let { data } = parse(text, { header: true });
+    const { data } = parse(text, { header: true });
 
     // @ts-ignore
-    data = data.filter((d) => d["STOCK CODE"] !== undefined);
+    // data = data.filter((d) => d["STOCK CODE"] !== undefined);
 
     // eslint-disable-next-line no-restricted-globals
     if (!isNaN(returnType)) {
       const result = data.slice(0, Number(returnType));
-      return res.json({ data, result });
+      return res.json({ month, result });
     }
 
     if (typeof returnType === "string") {
       if (returnType === "All") {
         // eslint-disable-next-line @typescript-eslint/no-redeclare
         const result = data;
-        return res.json({ result });
+        return res.json({ month, result });
       }
 
       const downloadBlockBlobResponse2 = await blockBlobClient2.download(0);
@@ -116,7 +118,7 @@ export default async function handler(
       // @ts-ignore
       // eslint-disable-next-line @typescript-eslint/no-redeclare
       const result = data.find((d) => d?.["STOCK CODE"] === returnType);
-      return res.json({ result, bondPriceHistory, bondReturnHistory });
+      return res.json({ month, result, bondPriceHistory, bondReturnHistory });
     }
 
     return res.status(400).json({ error: "invalid" });

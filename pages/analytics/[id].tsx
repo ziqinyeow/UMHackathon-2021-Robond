@@ -12,39 +12,41 @@ const meta = {
 
 interface Props {
   result: DataType;
-  bondPriceHistory: {
-    bondPriceMonth: string[];
-    bondPriceValue: number[];
+  bondPriceHistory?: {
+    bondPriceMonth?: string[];
+    bondPriceValue?: number[];
   };
-  bondReturnHistory: {
-    bondReturnMonth: string[];
-    bondReturnValue: number[];
+  bondReturnHistory?: {
+    bondReturnMonth?: string[];
+    bondReturnValue?: number[];
   };
 }
 
 type DataType = {
-  "STOCK CODE": string;
-  "ISIN CODE": string;
-  "STOCK NAME": string;
-  RATING: string;
-  "EVAL MID PRICE": string;
-  "MATURITY DATE": string;
-  PREDICTION: string;
-  "BOND RETURN": string;
-  VOLATILITY: string;
-  RATIO: string;
+  "STOCK CODE"?: string;
+  "ISIN CODE"?: string;
+  "STOCK NAME"?: string;
+  RATING?: string;
+  "EVAL MID PRICE"?: string;
+  "MATURITY DATE"?: string;
+  PREDICTION?: string;
+  "BOND RETURN"?: string;
+  VOLATILITY?: string;
+  RATIO?: string;
 };
 
 const Analytics: NextPage<Props> = ({
   result,
+  // @ts-ignore
   bondPriceHistory: { bondPriceMonth, bondPriceValue },
+  // @ts-ignore
   bondReturnHistory: { bondReturnValue },
 }) => {
   return (
     <BasicLayout meta={meta}>
       <div className="layout">
         <h3 className="mb-2 font-bold">
-          {result?.["STOCK NAME"].split(" ").slice(0, 2).join(" ")}
+          {result?.["STOCK NAME"]?.split(" ").slice(0, 2).join(" ")}
         </h3>
         <h4 className="mb-6 font-bold">
           {result?.["ISIN CODE"]}: {result?.["STOCK CODE"]}
@@ -71,8 +73,8 @@ const Analytics: NextPage<Props> = ({
             <h3 className="font-semibold">Bond Return:</h3>
             <h3>
               {Math.round(
-                (Number(result?.["BOND RETURN"]) + Number.EPSILON) * 100
-              ) / 100}{" "}
+                (Number(result?.["BOND RETURN"]) + Number.EPSILON) * 100000
+              ) / 100000}{" "}
               %
             </h3>
           </div>

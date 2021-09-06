@@ -15,13 +15,16 @@ interface Props {
 }
 
 type DataType = {
-  "STOCK CODE": string;
-  "ISIN CODE": string;
-  "STOCK NAME": string;
-  RATING: string;
-  "EVAL MID PRICE": string;
-  PREDICTION: string;
-  "BOND RETURN": string;
+  "STOCK CODE"?: string;
+  "ISIN CODE"?: string;
+  "STOCK NAME"?: string;
+  RATING?: string;
+  "EVAL MID PRICE"?: string;
+  "MATURITY DATE"?: string;
+  PREDICTION?: string;
+  "BOND RETURN"?: string;
+  VOLATILITY?: string;
+  RATIO?: string;
 };
 
 const Analytics: NextPage<Props> = ({ result }) => {
