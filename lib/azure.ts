@@ -2,13 +2,43 @@ const { BlobServiceClient } = require("@azure/storage-blob");
 
 const connectionString = process.env.AZURE_CONNECTION_STRING;
 const blobSasUrl = process.env.NEXT_PUBLIC_AZURE_BLOB_SAS_URL;
-const containerName = process.env.NEXT_PUBLIC_AZURE_CONTAINER_NAME;
+const containerNameForRead = process.env.AZURE_CONTAINER_NAME_FOR_READ;
+const containerNameForWrite =
+  process.env.NEXT_PUBLIC_AZURE_CONTAINER_NAME_FOR_WRITE;
 
 export const getAllAzureBlobFiles = async () => {
   const blobServiceClient =
     BlobServiceClient.fromConnectionString(connectionString);
   // const blobServiceClient = new BlobServiceClient(blobSasUrl);
-  const containerClient = blobServiceClient.getContainerClient(containerName);
+  const containerClient =
+    blobServiceClient.getContainerClient(containerNameForRead);
+
+  const fileName = [];
+  try {
+    const iter = containerClient.listBlobsFlat();
+    let blobItem = await iter.next();
+    while (!blobItem.done) {
+      const blobClient = containerClient.getBlobClient(
+        `${blobItem.value.name}`
+      );
+      const blockBlobClient = blobClient.getBlockBlobClient();
+
+      fileName.push({ name: blobItem.value.name, url: blockBlobClient.url });
+      // eslint-disable-next-line no-await-in-loop
+      blobItem = await iter.next();
+    }
+    return fileName;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getThreeLatestAzureBlobFileName: any = async () => {
+  const blobServiceClient =
+    BlobServiceClient.fromConnectionString(connectionString);
+  // const blobServiceClient = new BlobServiceClient(blobSasUrl);
+  const containerClient =
+    blobServiceClient.getContainerClient(containerNameForRead);
 
   const fileName = [];
   try {
@@ -19,8 +49,8 @@ export const getAllAzureBlobFiles = async () => {
       // eslint-disable-next-line no-await-in-loop
       blobItem = await iter.next();
     }
-
-    return fileName;
+    const filtered = fileName.filter((f) => f.includes("output")).sort();
+    return filtered.slice(filtered.length - 3);
   } catch (error) {
     return error;
   }
@@ -28,7 +58,9 @@ export const getAllAzureBlobFiles = async () => {
 
 export const uploadFilesToAzureContainer = async (files: any) => {
   const blobServiceClient = new BlobServiceClient(blobSasUrl);
-  const containerClient = blobServiceClient.getContainerClient(containerName);
+  const containerClient = blobServiceClient.getContainerClient(
+    containerNameForWrite
+  );
 
   try {
     const promises = [];
@@ -46,7 +78,9 @@ export const uploadFilesToAzureContainer = async (files: any) => {
 
 export const deleteFilefromAzureContainer = async (fileName: string) => {
   const blobServiceClient = new BlobServiceClient(blobSasUrl);
-  const containerClient = blobServiceClient.getContainerClient(containerName);
+  const containerClient = blobServiceClient.getContainerClient(
+    containerNameForWrite
+  );
   const blobClient = containerClient.getBlobClient(fileName);
   const blockBlobClient = blobClient.getBlockBlobClient();
 
@@ -73,7 +107,8 @@ async function streamToString(readableStream: any) {
 
 export const downloadFilefromAzureContainer = async (fileName: string) => {
   const blobServiceClient = new BlobServiceClient(blobSasUrl);
-  const containerClient = blobServiceClient.getContainerClient(containerName);
+  const containerClient =
+    blobServiceClient.getContainerClient(containerNameForRead);
   const blobClient = containerClient.getBlobClient(fileName);
   const blockBlobClient = blobClient.getBlockBlobClient();
 

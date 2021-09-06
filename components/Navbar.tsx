@@ -11,7 +11,7 @@ const Navbar = () => {
   useEffect(() => setMounted(true), []);
 
   return (
-    <nav className="border-b nav sticky_nav dark:border-gray-700 dark:bg-gray-900">
+    <nav className="bg-white border-b nav sticky_nav dark:border-gray-700 dark:bg-gray-900">
       <div>
         <NextLink href="/">
           <a>

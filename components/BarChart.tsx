@@ -2,34 +2,42 @@ import { Bar } from "react-chartjs-2";
 import { useTheme } from "next-themes";
 
 interface Props {
-  history: number[];
+  title1: string;
+  xAxis: string[];
+  yAxis1: number[];
+  title2: string;
+  yAxis2: number[];
 }
 
-const BarChart = ({ history }: Props) => {
+const BarChart = ({ title1, xAxis, yAxis1, title2, yAxis2 }: Props) => {
   const { resolvedTheme } = useTheme();
+  let count = 0;
+  for (let i = 0; i < yAxis1.length; i += 1) {
+    if (yAxis1[i]) {
+      count = i;
+      break;
+    }
+  }
+  const x = xAxis.slice(count);
+  const y1 = yAxis1.slice(count);
+  const y2 = yAxis2.slice(count);
 
   return (
     <div className="w-full h-full dark:text-white">
       <Bar
         data={{
-          labels: [
-            "Jan",
-            "Feb",
-            "Mar",
-            "April",
-            "May",
-            "Jun",
-            "July",
-            "Aug",
-            "Sep",
-            "Oct",
-            "Nov",
-            "Dec",
-          ],
+          labels: x,
           datasets: [
             {
-              label: `${new Date().getFullYear()} Bond Price (RM) `,
-              data: history,
+              label: title1,
+              data: y1,
+              backgroundColor: `${
+                resolvedTheme === "light" ? "#8833ff" : "#2BEBC8"
+              }`,
+            },
+            {
+              label: title2,
+              data: y2,
               backgroundColor: `${
                 resolvedTheme === "light" ? "#8833ff" : "#2BEBC8"
               }`,

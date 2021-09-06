@@ -53,8 +53,8 @@ const Home: NextPage<Props> = ({ result }) => {
             </div>
             {result.map((res, index) => (
               <Link
-                href={`/analytics/${res?.["ISIN CODE"]}`}
-                key={res?.["ISIN CODE"]}
+                href={`/analytics/${res?.["STOCK CODE"]}`}
+                key={res?.["STOCK CODE"]}
               >
                 <a>
                   <div className="p-5 mb-5 border rounded-md dark:border-gray-700">
@@ -65,7 +65,7 @@ const Home: NextPage<Props> = ({ result }) => {
                     <div className="flex">
                       <h4 className="pr-4">Bond Price:</h4>
                       <h4>
-                        RM
+                        RM{" "}
                         {Math.round(
                           (Number(res?.PREDICTION) + Number.EPSILON) * 100
                         ) / 100}
@@ -114,7 +114,6 @@ export const getStaticProps: GetStaticProps = async () => {
   const data = await fetch("http://localhost:3000/api/data", {
     method: "POST",
     body: JSON.stringify({
-      month: "Nov 2020",
       returnType: "5",
     }),
     headers: {
@@ -123,8 +122,6 @@ export const getStaticProps: GetStaticProps = async () => {
   });
 
   const { result } = await data.json();
-  // eslint-disable-next-line no-console
-  console.log(result);
 
   return {
     props: { result },

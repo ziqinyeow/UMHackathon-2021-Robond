@@ -58,7 +58,10 @@ const Analytics: NextPage<Props> = ({ result }) => {
         )}
 
         {filterData.map((d, index) => (
-          <Link key={d?.["ISIN CODE"]} href={`/analytics/${d?.["ISIN CODE"]}`}>
+          <Link
+            key={d?.["STOCK CODE"]}
+            href={`/analytics/${d?.["STOCK CODE"]}`}
+          >
             <a className="grid w-full grid-cols-6 py-3 text-center hover:bg-gray-100 dark:hover:bg-gray-700">
               <h5 className="px-3 overflow-hidden">{index + 1}</h5>
               <h5 className="px-3 overflow-hidden">{d?.RATING}</h5>
@@ -87,8 +90,7 @@ export const getStaticProps: GetStaticProps = async () => {
   const data = await fetch("http://localhost:3000/api/data", {
     method: "POST",
     body: JSON.stringify({
-      month: "Nov 2020",
-      returnType: "All",
+      returnType: "100",
     }),
     headers: {
       "Content-Type": "application/json",
