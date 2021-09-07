@@ -102,7 +102,9 @@ const Analytics: NextPage<Props> = ({
             </div>
           </div>
           <div className="p-6 border rounded-md dark:border-gray-700">
-            <h3 className="mb-4 font-semibold">Volatility Ratio</h3>
+            <h3 className="mb-4 font-semibold">
+              Bond Return Per Volatility Ratio
+            </h3>
             <div className="flex items-center justify-center w-full mt-5 dark:text-gray-50">
               <div className="flex items-center justify-center w-48">
                 <CircularProgressBar

@@ -24,7 +24,10 @@ module.exports = {
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      gradientColorStops: ["group-hover"],
+      transitionDuration: ["group-hover"],
+    },
   },
   plugins: [],
 };
