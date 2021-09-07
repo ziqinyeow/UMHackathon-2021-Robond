@@ -66,12 +66,10 @@ const Admin: NextPage = ({
             type="button"
             className="w-full px-4 py-3 border-2 rounded-md"
             onClick={async () => {
-              await fetch(
-                "https://financetrigger.azurewebsites.net:443/api/triggerTrain/triggers/manual/invoke?api-version=2020-05-01-preview&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=Cc9khRY4TQFQQQamqs2J40g6lK5eoAyGzwQ6ZHUgeak",
-                {
-                  method: "POST",
-                }
-              );
+              // @ts-ignore
+              await fetch(process.env.NEXT_PUBLIC_RETRAIN_URL, {
+                method: "POST",
+              });
             }}
           >
             Retrain the AI Model
