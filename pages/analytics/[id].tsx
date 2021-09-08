@@ -13,11 +13,11 @@ const meta = {
 
 interface Props {
   result: DataType;
-  bondPriceHistory?: {
+  bondPriceHistory: {
     bondPriceMonth?: string[];
     bondPriceValue?: number[];
   };
-  bondReturnHistory?: {
+  bondReturnHistory: {
     bondReturnMonth?: string[];
     bondReturnValue?: number[];
   };
@@ -41,9 +41,9 @@ type DataType = {
 const Analytics: NextPage<Props> = ({
   result,
   // @ts-ignore
-  bondPriceHistory: { bondPriceMonth, bondPriceValue },
+  bondPriceHistory,
   // @ts-ignore
-  bondReturnHistory: { bondReturnValue },
+  bondReturnHistory,
 }) => {
   return (
     <BasicLayout meta={meta}>
@@ -137,10 +137,10 @@ const Analytics: NextPage<Props> = ({
             <div className="w-full h-64">
               <BarChart
                 title1=" Bond Price (RM) "
-                xAxis={bondPriceMonth}
-                yAxis1={bondPriceValue}
+                xAxis={bondPriceHistory?.bondPriceMonth}
+                yAxis1={bondPriceHistory?.bondPriceValue}
                 title2=" Bond Return (%) "
-                yAxis2={bondReturnValue}
+                yAxis2={bondReturnHistory?.bondReturnValue}
               />
             </div>
           </div>

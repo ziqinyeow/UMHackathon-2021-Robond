@@ -233,6 +233,7 @@ export default Home;
 
 export const getStaticProps: GetStaticProps = async () => {
   const { processedMonth, result }: any = await getBond(5);
+
   return {
     props: { processedMonth, result },
   };
