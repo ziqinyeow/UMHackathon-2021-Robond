@@ -7,8 +7,6 @@ class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
-          <meta content="#ffffff" name="theme-color" />
-          <meta content="#ffffff" name="msapplication-TileColor" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link
             rel="preconnect"
@@ -16,13 +14,19 @@ class MyDocument extends Document {
             crossOrigin="true"
           />
           <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Sacramento&display=swap"
+            rel="stylesheet"
+          />
+          {/* <link
             rel="preload"
             as="style"
             href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Sacramento&display=swap"
-          />
-          <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Sacramento&display=swap"
-            rel="stylesheet"
+          /> */}
+          <meta content="#ffffff" name="theme-color" />
+          <meta content="#ffffff" name="msapplication-TileColor" />
+          <meta
+            name="google-site-verification"
+            content="TRhaE6XDQQf0Le1aEUA5XwclfzC8gnQfV6y5mIFTz-w"
           />
           <noscript>
             <link

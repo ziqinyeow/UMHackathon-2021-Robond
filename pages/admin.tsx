@@ -10,10 +10,9 @@ import Loader from "react-loader-spinner";
 import BasicLayout from "@/layouts/BasicLayout";
 
 const meta = {
-  type: "",
-  title: "Admin",
-  description: "",
-  image: "",
+  title: "Robond - Admin",
+  description: "Hello Admin, welcome to configuring the setup!!! Happy Hacking",
+  image: "https://robond.vercel.app/static/Home.jpg",
 };
 
 const Admin: NextPage = ({

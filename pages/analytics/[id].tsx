@@ -7,13 +7,6 @@ import BasicLayout from "@/layouts/BasicLayout";
 import CircularProgressBar from "@/components/CircularProgressBar";
 import BarChart from "@/components/BarChart";
 
-const meta = {
-  type: "",
-  title: "Analytics",
-  description: "",
-  image: "",
-};
-
 interface Props {
   result: DataType;
   bondPriceHistory: {
@@ -48,6 +41,12 @@ const Analytics: NextPage<Props> = ({
   // @ts-ignore
   bondReturnHistory,
 }) => {
+  const meta = {
+    title: `Robond - ${result?.["STOCK CODE"]}`,
+    description: `Rank ${result?.RANK} bond with insightful and relavant information display to you dynamically`,
+    image: "https://robond.vercel.app/static/Home.jpg",
+  };
+
   return (
     <BasicLayout meta={meta}>
       <div className="layout">

@@ -11,10 +11,10 @@ import OPRCard from "@/components/OPRCard";
 import Banner from "@/components/Banner";
 
 const meta = {
-  type: "",
-  title: "Home",
-  description: "",
-  image: "",
+  title: "Robond - Home",
+  description:
+    "A JAMstack application build with Next.js, Typescript and TailwindCSS. This application predicts and showcases Malaysia next month bond price, bond return and others using the AI ML model. Home page display the TOP 5 bond based on volatility ratio",
+  image: "https://robond.vercel.app/static/Home.jpg",
 };
 interface Props {
   processedMonth: string;

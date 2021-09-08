@@ -4,13 +4,12 @@ import { useState } from "react";
 import BasicLayout from "@/layouts/BasicLayout";
 
 const meta = {
-  type: "",
-  title: "Access",
-  description: "",
-  image: "",
+  title: "Robond - Feedback",
+  description: "Give your valuable feedback to us!",
+  image: "https://robond.vercel.app/static/Home.jpg",
 };
 
-const Access: NextPage = () => {
+const Feedback: NextPage = () => {
   const router = useRouter();
 
   const [inputValue, setInputValue] = useState({
@@ -73,4 +72,4 @@ const Access: NextPage = () => {
   );
 };
 
-export default Access;
+export default Feedback;

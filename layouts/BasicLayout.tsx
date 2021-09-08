@@ -1,5 +1,6 @@
 import React from "react";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -9,13 +10,13 @@ interface Props {
 }
 
 type Metadata = {
-  type: string;
   title: string;
   description: string;
   image: string;
 };
 
 const BasicLayout = ({ meta, children }: Props) => {
+  const router = useRouter();
   return (
     <div>
       <div>
@@ -23,11 +24,22 @@ const BasicLayout = ({ meta, children }: Props) => {
           <title>{meta.title}</title>
           <meta name="robots" content="follow, index" />
           <meta content={meta.description} name="description" />
-          <meta property="og:type" content={meta.type} />
+          <meta
+            property="og:url"
+            content={`https://robond.vercel.app${router.asPath}`}
+          />
+          <link
+            rel="canonical"
+            href={`https://robond.vercel.app/${router.asPath}`}
+          />
           <meta property="og:site_name" content="Bond Prediction Application" />
           <meta property="og:description" content={meta.description} />
           <meta property="og:title" content={meta.title} />
           <meta property="og:image" content={meta.image} />
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:title" content={meta.title} />
+          <meta name="twitter:description" content={meta.description} />
+          <meta name="twitter:image" content={meta.image} />
         </Head>
       </div>
       <div>

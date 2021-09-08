@@ -3,10 +3,10 @@ import { ChangeEvent, useState } from "react";
 import BasicLayout from "@/layouts/BasicLayout";
 
 const meta = {
-  type: "",
-  title: "Predict",
-  description: "",
-  image: "",
+  title: "Robond - Predict",
+  description:
+    "Test our artificial intelligence model with machine learning model running at the background to serve you accurate result",
+  image: "https://robond.vercel.app/static/Home.jpg",
 };
 
 interface Form {
