@@ -2,6 +2,7 @@ import type { GetStaticProps, NextPage } from "next";
 import Link from "next/link";
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 import Image from "next/image";
+import { getBond } from "lib/data";
 import Dell from "@/public/static/Dell.jpg";
 import Fusionex from "@/public/static/Fusionex.png";
 import Swift from "@/public/static/Swift.jpg";
@@ -21,12 +22,14 @@ interface Props {
 }
 
 type DataType = {
+  Rank?: string;
   "STOCK CODE"?: string;
   "ISIN CODE"?: string;
   "STOCK NAME"?: string;
   RATING?: string;
   "EVAL MID PRICE"?: string;
   "MATURITY DATE"?: string;
+  "NEXT COUPON RATE"?: string;
   PREDICTION?: string;
   "BOND RETURN"?: string;
   VOLATILITY?: string;
@@ -229,37 +232,7 @@ const Home: NextPage<Props> = ({ processedMonth, result }) => {
 export default Home;
 
 export const getStaticProps: GetStaticProps = async () => {
-  const data = await fetch("http://localhost:3000/api/data", {
-    method: "POST",
-    body: JSON.stringify({
-      returnType: "5",
-    }),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-
-  const { month, result } = await data.json();
-
-  const monthList = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "June",
-    "July",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
-
-  const processedMonth = `${
-    monthList[Number(month.slice(11, 13)) - 1]
-  }  ${month.slice(7, 11)}`;
-
+  const { processedMonth, result }: any = await getBond(5);
   return {
     props: { processedMonth, result },
   };

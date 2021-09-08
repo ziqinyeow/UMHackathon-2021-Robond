@@ -4,7 +4,7 @@ import BasicLayout from "@/layouts/BasicLayout";
 
 const meta = {
   type: "",
-  title: "Robot",
+  title: "Predict",
   description: "",
   image: "",
 };
@@ -24,6 +24,14 @@ interface Form {
 }
 
 const Robot: NextPage = () => {
+  const now = new Date();
+  let current;
+  if (now.getMonth() === 11) {
+    current = new Date(now.getFullYear() + 1, 0, 1 + 1);
+  } else {
+    current = new Date(now.getFullYear(), now.getMonth() + 1, 1 + 1);
+  }
+
   const [form, setForm] = useState<Form>();
   const [nextMonthBondPrice, setNextMonthBondPrice] = useState(0);
 
@@ -162,7 +170,7 @@ const Robot: NextPage = () => {
               className="w-full p-3 mt-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-700 dark:focus:ring-gray-500 dark:border-gray-700 dark:bg-gray-900"
               type="date"
               name="DAYS TO MATURITY"
-              step="1"
+              min={`${current.toISOString().slice(0, 10)}`}
               onChange={handleChange}
               required
             />
@@ -202,7 +210,6 @@ const Robot: NextPage = () => {
               name="RATING"
               onChange={handleChange}
             >
-              <option value="NR(LT)">NR(LT)</option>
               <option value="A+IS">A+IS</option>
               <option value="A1">A1</option>
               <option value="AA+">AA+</option>

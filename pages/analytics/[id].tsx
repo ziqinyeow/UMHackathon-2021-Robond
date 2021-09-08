@@ -1,4 +1,5 @@
 import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import { getBond, getBondByStockCode } from "lib/data";
 import BasicLayout from "@/layouts/BasicLayout";
 import CircularProgressBar from "@/components/CircularProgressBar";
 import BarChart from "@/components/BarChart";
@@ -23,12 +24,14 @@ interface Props {
 }
 
 type DataType = {
+  RANK?: string;
   "STOCK CODE"?: string;
   "ISIN CODE"?: string;
   "STOCK NAME"?: string;
   RATING?: string;
   "EVAL MID PRICE"?: string;
   "MATURITY DATE"?: string;
+  "NEXT COUPON RATE"?: string;
   PREDICTION?: string;
   "BOND RETURN"?: string;
   VOLATILITY?: string;
@@ -45,20 +48,27 @@ const Analytics: NextPage<Props> = ({
   return (
     <BasicLayout meta={meta}>
       <div className="layout">
-        <h3 className="mb-2 font-bold">
-          {result?.["STOCK NAME"]?.split(" ").slice(0, 2).join(" ")}
-        </h3>
-        <h4 className="mb-6 font-bold">
-          {result?.["ISIN CODE"]}: {result?.["STOCK CODE"]}
+        <div className="flex items-center justify-between w-full">
+          <h1 className="mb-2 font-bold">
+            {result?.["STOCK NAME"]?.split(" ").slice(0, 2).join(" ")}
+          </h1>
+          <h4 className="px-4 py-2 font-semibold border-2 rounded dark:border-gray-700">
+            Rank {result?.RANK}
+          </h4>
+        </div>
+        <h4 className="mb-2 font-medium">
+          Stock Code: {result?.["STOCK CODE"]}
         </h4>
+        <h4 className="mb-2 font-medium">Isin Code: {result?.["ISIN CODE"]}</h4>
+        <h4 className="mb-10 font-medium">Rating: {result?.RATING}</h4>
         <div className="grid w-full gap-3 mb-4 md:gap-4 sm:grid-cols-3">
-          <div className="flex flex-col justify-between p-6 border rounded-md dark:border-gray-700">
-            <h3 className="font-semibold">Bond Price:</h3>
-            <h3>
-              RM{" "}
+          <div className="flex flex-col justify-between p-6 border rounded-md theme_card sm:col-span-2 dark:border-gray-700">
+            <h3 className="mb-3 font-semibold">Bond Price:</h3>
+            <h1>
+              <span className="text-2xl font-bold md:text-3xl">RM </span>
               {Math.round((Number(result?.PREDICTION) + Number.EPSILON) * 100) /
                 100}
-            </h3>
+            </h1>
             <h6>
               {Math.round(
                 (Number(result?.PREDICTION) -
@@ -69,23 +79,56 @@ const Analytics: NextPage<Props> = ({
               compared to last month
             </h6>
           </div>
-          <div className="flex flex-col justify-between p-6 border rounded-md dark:border-gray-700">
+          <div className="flex flex-col justify-between p-6 text-white border rounded-md dark:border-gray-700 from-primary-100 to-primary-200 dark:from-primary-400 dark:to-primary-300 bg-gradient-to-l">
             <h3 className="font-semibold">Bond Return:</h3>
-            <h3>
+            <h2>
               {Math.round(
                 (Number(result?.["BOND RETURN"]) + Number.EPSILON) * 100000
-              ) / 100000}{" "}
-              %
-            </h3>
+              ) / 100000}
+              <span className="text-xl md:text-2xl">%</span>
+            </h2>
           </div>
           <div className="flex flex-col justify-between p-6 border rounded-md dark:border-gray-700">
             <h3 className="font-semibold">Volatility:</h3>
-            <h3>
+            <h2>
               {Math.round(
                 (Number(result?.VOLATILITY) + Number.EPSILON) * 100000
-              ) / 100000}{" "}
-              %
+              ) / 100000}
+              <span className="text-xl md:text-2xl">%</span>
+            </h2>
+          </div>
+          <div className="flex flex-col justify-between p-6 border rounded-md dark:border-gray-700">
+            <h3 className="mb-3 font-semibold">
+              Bond Return Per Volatility Ratio:
             </h3>
+            <h2>
+              {Math.round(
+                (Number(result?.VOLATILITY) + Number.EPSILON) * 100000
+              ) / 100000}
+              <span className="text-xl md:text-2xl">%</span>
+            </h2>
+          </div>
+          <div className="p-6 border rounded-md dark:border-gray-700">
+            <h3 className="mb-3 font-semibold text-center">Maturity Date</h3>
+            <div className="flex items-center justify-center">
+              <div className="flex flex-col items-center justify-center p-3 rounded">
+                <h1>
+                  {
+                    // @ts-ignore
+                    new Date(result?.["MATURITY DATE"]).getDate()
+                  }
+                </h1>
+                <h5>
+                  {new Date(
+                    // @ts-ignore
+                    result?.["MATURITY DATE"].toString()
+                  ).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                  })}
+                </h5>
+              </div>
+            </div>
           </div>
         </div>
         <div className="grid w-full grid-cols-1 gap-3 md:gap-4 sm:grid-cols-3">
@@ -102,15 +145,15 @@ const Analytics: NextPage<Props> = ({
             </div>
           </div>
           <div className="p-6 border rounded-md dark:border-gray-700">
-            <h3 className="mb-4 font-semibold">
-              Bond Return Per Volatility Ratio
-            </h3>
+            <h3 className="mb-4 font-semibold text-center">Next Coupon Rate</h3>
             <div className="flex items-center justify-center w-full mt-5 dark:text-gray-50">
               <div className="flex items-center justify-center w-48">
                 <CircularProgressBar
                   percentage={
-                    Math.round((Number(result?.RATIO) + Number.EPSILON) * 100) /
-                    100
+                    Math.round(
+                      (Number(result?.["NEXT COUPON RATE"]) + Number.EPSILON) *
+                        100
+                    ) / 100
                   }
                 />
               </div>
@@ -125,16 +168,7 @@ const Analytics: NextPage<Props> = ({
 export default Analytics;
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const data = await fetch("http://localhost:3000/api/data", {
-    method: "POST",
-    body: JSON.stringify({
-      returnType: "100",
-    }),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  const { result } = await data.json();
+  const { result }: any = await getBond(100);
 
   return {
     // @ts-ignore
@@ -147,17 +181,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const data = await fetch("http://localhost:3000/api/data", {
-    method: "POST",
-    body: JSON.stringify({
-      returnType: params?.id,
-    }),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-
-  const { result, bondPriceHistory, bondReturnHistory } = await data.json();
+  const { result, bondPriceHistory, bondReturnHistory }: any =
+    // @ts-ignore
+    await getBondByStockCode(params?.id);
 
   return {
     props: { result, bondPriceHistory, bondReturnHistory },

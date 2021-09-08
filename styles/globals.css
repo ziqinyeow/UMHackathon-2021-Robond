@@ -132,3 +132,7 @@ html {
   -ms-transform: rotate(3deg) translate(0px, -4px);
   transform: rotate(3deg) translate(0px, -4px);
 }
+
+.theme_card {
+  @apply bg-gradient-to-r from-primary-100 to-primary-200 dark:from-primary-400 dark:to-primary-300 text-white;
+}
