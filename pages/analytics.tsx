@@ -1,4 +1,4 @@
-import type { GetStaticProps, NextPage } from "next";
+import type { GetServerSideProps, NextPage } from "next";
 import Link from "next/link";
 import { useState } from "react";
 import { getBond } from "lib/data";
@@ -117,7 +117,7 @@ const Analytics: NextPage<Props> = ({ processedMonth, result }) => {
 
 export default Analytics;
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const { processedMonth, result }: any = await getBond(100);
   return {
     props: { processedMonth, result },

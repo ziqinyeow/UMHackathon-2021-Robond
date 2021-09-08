@@ -1,5 +1,8 @@
-import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
-import { getBond, getBondByStockCode } from "lib/data";
+import type { GetServerSideProps, NextPage } from "next";
+import {
+  // getBond,
+  getBondByStockCode,
+} from "lib/data";
 import BasicLayout from "@/layouts/BasicLayout";
 import CircularProgressBar from "@/components/CircularProgressBar";
 import BarChart from "@/components/BarChart";
@@ -167,20 +170,20 @@ const Analytics: NextPage<Props> = ({
 
 export default Analytics;
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const { result }: any = await getBond(100);
+// export const getStaticPaths: GetStaticPaths = async () => {
+//   const { result }: any = await getBond(100);
 
-  return {
-    // @ts-ignore
-    paths: result.map((res) => ({
-      // eslint-disable-next-line prefer-template
-      params: { id: res["STOCK CODE"]?.toString() },
-    })),
-    fallback: true,
-  };
-};
+//   return {
+//     // @ts-ignore
+//     paths: result.map((res) => ({
+//       // eslint-disable-next-line prefer-template
+//       params: { id: res["STOCK CODE"]?.toString() },
+//     })),
+//     fallback: true,
+//   };
+// };
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const { result, bondPriceHistory, bondReturnHistory }: any =
     // @ts-ignore
     await getBondByStockCode(params?.id);

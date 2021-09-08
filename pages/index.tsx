@@ -1,4 +1,4 @@
-import type { GetStaticProps, NextPage } from "next";
+import type { GetServerSideProps, NextPage } from "next";
 import Link from "next/link";
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 import Image from "next/image";
@@ -231,7 +231,7 @@ const Home: NextPage<Props> = ({ processedMonth, result }) => {
 
 export default Home;
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const { processedMonth, result }: any = await getBond(5);
 
   return {
