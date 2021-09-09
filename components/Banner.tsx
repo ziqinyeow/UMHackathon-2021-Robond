@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 
 const Banner: React.FC = () => {
-  const [display, setDisplay] = useState("true");
+  const [display, setDisplay] = useState("false");
   useEffect(() => {
-    if (window.sessionStorage.getItem("robond-banner-display") === "false") {
-      setDisplay("false");
+    if (window.sessionStorage.getItem("robond-banner-display") !== "false") {
+      setDisplay("true");
     }
   }, []);
 

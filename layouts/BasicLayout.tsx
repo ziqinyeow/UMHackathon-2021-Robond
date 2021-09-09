@@ -3,6 +3,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import Banner from "@/components/Banner";
 
 interface Props {
   meta: Metadata;
@@ -44,6 +45,7 @@ const BasicLayout = ({ meta, children }: Props) => {
       </div>
       <div>
         <Navbar />
+        <Banner />
         {children}
         <div className="layout">
           <Footer />

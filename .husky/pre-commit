@@ -11,7 +11,7 @@ git add .
 npm run style:prettier ||
 (
     echo '🤢🤮🤢🤮 Its FOKING RAW - Your styling looks disgusting. 🤢🤮🤢🤮
-            Prettier Check Failed. Run npm run format, add changes and try commit again.';
+            Prettier Check Failed. Run npm run style:format, add changes and try commit again.';
     false;
 )
 
@@ -32,14 +32,14 @@ npm run style:types ||
 )
 
 # If everything passes... Now we can commit
-# echo '🤔🤔🤔🤔... Alright.... Code looks good to me... Trying to build now. 🤔🤔🤔🤔'
+echo '🤔🤔🤔🤔... Alright.... Code looks good to me... Trying to build now. 🤔🤔🤔🤔'
 
-# npm run build ||
-# (
-#     echo '❌👷🔨❌ Better call Bob... Because your build failed ❌👷🔨❌
-#             Next build failed: View the errors above to see why. 
-#     '
-#     false;
-# )
+npm run build ||
+(
+    echo '❌👷🔨❌ Better call Bob... Because your build failed ❌👷🔨❌
+            Next build failed: View the errors above to see why. 
+    '
+    false;
+)
 
 echo '✅✅✅✅ You win this time... I am committing this now. ✅✅✅✅'

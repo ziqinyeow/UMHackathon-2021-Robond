@@ -1,4 +1,4 @@
-import type { NextPage } from "next";
+import type { GetServerSideProps, NextPage } from "next";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import {
@@ -6,6 +6,7 @@ import {
   getAllAzureOutputBlobFiles,
   uploadFilesToAzureContainer,
 } from "lib/azure";
+import { getModelMetrics } from "lib/data";
 import Loader from "react-loader-spinner";
 import BasicLayout from "@/layouts/BasicLayout";
 
@@ -16,6 +17,9 @@ const meta = {
 };
 
 const Admin: NextPage = ({
+  meanAbs,
+  meanSqr,
+  rootMeanSqr,
   inputFilesFromAzure,
   outputFilesFromAzure,
 }: any) => {
@@ -49,7 +53,7 @@ const Admin: NextPage = ({
         <div className="layout">
           <h3 className="mb-6 font-bold">Admin</h3>
           <h4 className="mb-6 font-bold">AI Model Accuracy</h4>
-          <div className="flex flex-col items-center justify-center w-full px-6 pt-5 pb-6 mt-1 mb-5 border-2 border-gray-300 border-dashed rounded-md">
+          <div className="flex flex-col items-center justify-center w-full px-6 pt-5 pb-6 mt-1 mb-5 border-2 border-gray-300 border-dashed rounded-md dark:border-gray-700">
             <div>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -73,11 +77,20 @@ const Admin: NextPage = ({
                 <path fill="currentColor" d="M8 16h8v2H8z" />
               </svg>
             </div>
+            <div className="mt-3">
+              <strong>Mean Absolute Error:</strong> {meanAbs}
+            </div>
+            <div className="mt-1">
+              <strong>Mean Squared Error:</strong> {meanSqr}
+            </div>
+            <div className="mt-1">
+              <strong>Root Mean Squared Error:</strong> {rootMeanSqr}
+            </div>
           </div>
           <div className="w-full mb-16">
             <button
               type="button"
-              className="w-full px-4 py-3 border-2 rounded-md"
+              className="w-full px-4 py-3 border-2 rounded-md dark:border-gray-700"
               onClick={async () => {
                 // @ts-ignore
                 await fetch(process.env.NEXT_PUBLIC_RETRAIN_URL, {
@@ -124,7 +137,7 @@ const Admin: NextPage = ({
                       )
                     );
                   }}
-                  className="flex flex-col h-full px-6 pt-5 pb-6 mt-1 border-2 border-gray-300 border-dashed rounded-md"
+                  className="flex flex-col h-full px-6 pt-5 pb-6 mt-1 border-2 border-gray-300 border-dashed rounded-md dark:border-gray-700"
                 >
                   <h4 className="mb-10 font-bold">Input</h4>
                   <div className="space-y-1 text-center">
@@ -186,7 +199,7 @@ const Admin: NextPage = ({
                 refreshData();
               }}
             >
-              <div className="px-6 pt-5 pb-6 mt-1 border-2 border-gray-300 border-dashed rounded-md">
+              <div className="px-6 pt-5 pb-6 mt-1 border-2 border-gray-300 border-dashed rounded-md dark:border-gray-700">
                 <h4 className="font-bold">File</h4>
                 {!files && (
                   <div className="flex flex-col items-center justify-center w-full p-4 mt-3 text-gray-400">
@@ -227,7 +240,7 @@ const Admin: NextPage = ({
               <div className="grid grid-cols-2 mt-7 gap-7">
                 <button
                   type="submit"
-                  className="px-3 py-2 border "
+                  className="px-3 py-2 border dark:border-gray-700"
                   disabled={
                     !files ||
                     files?.length !== 2 ||
@@ -241,7 +254,7 @@ const Admin: NextPage = ({
                 {/* eslint-disable-next-line react/button-has-type */}
                 <button
                   type="reset"
-                  className="px-3 py-2 border"
+                  className="px-3 py-2 border dark:border-gray-700"
                   onClick={async (e) => {
                     e.preventDefault();
                     setFileName([]);
@@ -359,11 +372,18 @@ const Admin: NextPage = ({
 
 export default Admin;
 
-export async function getStaticProps() {
+export const getServerSideProps: GetServerSideProps = async () => {
   const inputFilesFromAzure = await getAllAzureInputBlobFiles();
   const outputFilesFromAzure = await getAllAzureOutputBlobFiles();
+  const { meanAbs, meanSqr, rootMeanSqr }: any = await getModelMetrics();
 
   return {
-    props: { inputFilesFromAzure, outputFilesFromAzure },
+    props: {
+      meanAbs,
+      meanSqr,
+      rootMeanSqr,
+      inputFilesFromAzure,
+      outputFilesFromAzure,
+    },
   };
-}
+};

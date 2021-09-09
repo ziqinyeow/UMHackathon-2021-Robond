@@ -8,7 +8,7 @@ import Fusionex from "@/public/static/Fusionex.png";
 import Swift from "@/public/static/Swift.jpg";
 import BasicLayout from "@/layouts/BasicLayout";
 import OPRCard from "@/components/OPRCard";
-import Banner from "@/components/Banner";
+// import Banner from "@/components/Banner";
 
 const meta = {
   title: "Robond - Home",
@@ -40,7 +40,6 @@ const Home: NextPage<Props> = ({ processedMonth, result }) => {
   return (
     <div>
       <BasicLayout meta={meta}>
-        <Banner />
         <div className="layout">
           <div className="w-full grid-cols-5 gap-6 mb-6 xl:gap-8 sm:grid">
             <div className="col-span-3 mb-10">
@@ -60,7 +59,7 @@ const Home: NextPage<Props> = ({ processedMonth, result }) => {
                   <a>
                     <div className="relative group">
                       <div className="absolute transition duration-1000 rounded-md -inset-1 bg-gradient-to-r from-primary-100 to-primary-200 dark:from-primary-400 dark:to-primary-300 opacity-20 group-hover:duration-200 group-hover:opacity-100 blur" />
-                      <div className="relative p-5 mb-5 transition duration-200 bg-white border rounded-md group-hover:text-white group-hover:bg-gradient-to-r dark:group-hover:from-primary-400 dark:group-hover:to-primary-300 group-hover:from-primary-100 group-hover:to-primary-200 bg-gradient-to-r dark:bg-black dark:border-gray-700">
+                      <div className="relative p-5 mb-6 transition duration-200 bg-white border rounded-md group-hover:text-white group-hover:bg-gradient-to-r dark:group-hover:from-primary-400 dark:group-hover:to-primary-300 group-hover:from-primary-100 group-hover:to-primary-200 bg-gradient-to-r dark:bg-black dark:border-gray-700">
                         <h1 className="absolute text-6xl font-bold transform opacity-20 right-12 rotate-12 bottom-12 sm:text-7xl md:text-8xl">
                           Top {index + 1}
                         </h1>
@@ -114,6 +113,19 @@ const Home: NextPage<Props> = ({ processedMonth, result }) => {
                                 (Number(res?.VOLATILITY) + Number.EPSILON) *
                                   100000
                               ) / 100000
+                            ) : (
+                              <span>--</span>
+                            )}{" "}
+                            %
+                          </h4>
+                        </div>
+                        <div className="flex">
+                          <h4 className="pr-4">Volatility Ratio:</h4>
+                          <h4>
+                            {res?.VOLATILITY ? (
+                              Math.round(
+                                (Number(res?.RATIO) + Number.EPSILON) * 1000
+                              ) / 1000
                             ) : (
                               <span>--</span>
                             )}{" "}

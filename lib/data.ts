@@ -165,3 +165,38 @@ export const getBondByStockCode = async (stockCode: string) => {
     return error;
   }
 };
+
+export const getModelMetrics = async () => {
+  const blobSasUrl = process.env.NEXT_PUBLIC_AZURE_BLOB_SAS_URL;
+  const containerName = process.env.AZURE_CONTAINER_NAME_FOR_READ;
+  // @ts-ignore
+  const blobServiceClient = new BlobServiceClient(blobSasUrl);
+  // @ts-ignore
+  const containerClient = blobServiceClient.getContainerClient(containerName);
+
+  const blobClient = containerClient.getBlobClient("metrics/metrics.csv");
+  const blockBlobClient = blobClient.getBlockBlobClient();
+
+  try {
+    const downloadBlockBlobResponse1 = await blockBlobClient.download(0);
+    const text = await streamToString(
+      downloadBlockBlobResponse1.readableStreamBody
+    );
+
+    // @ts-ignore
+    const { data } = parse(text, { header: true });
+
+    const result = data[0];
+
+    // @ts-ignore
+    const meanAbs = result?.["Mean Absolute Error"];
+    // @ts-ignore
+    const meanSqr = result?.["Mean Squared Error"];
+    // @ts-ignore
+    const rootMeanSqr = result?.["Root Mean Squared Error"];
+
+    return { meanAbs, meanSqr, rootMeanSqr };
+  } catch (error) {
+    return error;
+  }
+};

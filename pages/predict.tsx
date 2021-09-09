@@ -69,7 +69,13 @@ const Robot: NextPage = () => {
   return (
     <BasicLayout meta={meta}>
       <div className="relative layout">
-        <h3 className="mb-6 font-bold">Predict your next month bond price</h3>
+        <h3 className="font-bold">Predict</h3>
+        <h4 className="mb-10">
+          your next month{" "}
+          <span className="text-primary-100 dark:text-primary-300">
+            bond price
+          </span>
+        </h4>
         <form onSubmit={handleSubmit} className="grid w-full grid-cols-2 gap-4">
           <div className="mb-10">
             <h4 className="font-bold text-gray-600 dark:text-gray-300">
@@ -77,126 +83,10 @@ const Robot: NextPage = () => {
             </h4>
             <input
               className="w-full p-3 mt-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-700 dark:focus:ring-gray-500 dark:border-gray-700 dark:bg-gray-900"
-              type="number"
+              type="text"
               name="STOCK CODE"
-              step=".1"
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="mb-10">
-            <h4 className="font-bold text-gray-600 dark:text-gray-300">
-              Accrued Interest
-            </h4>
-            <input
-              className="w-full p-3 mt-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-700 dark:focus:ring-gray-500 dark:border-gray-700 dark:bg-gray-900"
-              type="number"
-              name="AINTEREST"
-              step=".1"
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="mb-10">
-            <h4 className="font-bold text-gray-600 dark:text-gray-300">
-              Coupon Frequency
-            </h4>
-            <input
-              className="w-full p-3 mt-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-700 dark:focus:ring-gray-500 dark:border-gray-700 dark:bg-gray-900"
-              type="number"
-              name="COUPON FREQUENCY"
-              step=".1"
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="mb-10">
-            <h4 className="font-bold text-gray-600 dark:text-gray-300">
-              Eval Mid Price
-            </h4>
-            <input
-              className="w-full p-3 mt-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-700 dark:focus:ring-gray-500 dark:border-gray-700 dark:bg-gray-900"
-              type="number"
-              name="EVAL MID PRICE"
-              step=".1"
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="mb-10">
-            <h4 className="font-bold text-gray-600 dark:text-gray-300">
-              Eval Mid Yield
-            </h4>
-            <input
-              className="w-full p-3 mt-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-700 dark:focus:ring-gray-500 dark:border-gray-700 dark:bg-gray-900"
-              type="number"
-              name="EVAL MID YIELD"
-              step=".1"
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="mb-10">
-            <h4 className="font-bold text-gray-600 dark:text-gray-300">
-              Modified Duration
-            </h4>
-            <input
-              className="w-full p-3 mt-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-700 dark:focus:ring-gray-500 dark:border-gray-700 dark:bg-gray-900"
-              type="number"
-              name="MODIFIED DURATION"
-              step=".1"
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="mb-10">
-            <h4 className="font-bold text-gray-600 dark:text-gray-300">
-              Next Coupon Rate
-            </h4>
-            <input
-              className="w-full p-3 mt-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-700 dark:focus:ring-gray-500 dark:border-gray-700 dark:bg-gray-900"
-              type="number"
-              name="NEXT COUPON RATE"
-              step=".1"
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="mb-10">
-            <h4 className="font-bold text-gray-600 dark:text-gray-300">
-              Maturity Date
-            </h4>
-            <input
-              className="w-full p-3 mt-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-700 dark:focus:ring-gray-500 dark:border-gray-700 dark:bg-gray-900"
-              type="date"
-              name="DAYS TO MATURITY"
-              min={`${current.toISOString().slice(0, 10)}`}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="mb-10">
-            <h4 className="font-bold text-gray-600 dark:text-gray-300">
-              Credit Spread
-            </h4>
-            <input
-              className="w-full p-3 mt-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-700 dark:focus:ring-gray-500 dark:border-gray-700 dark:bg-gray-900"
-              type="number"
-              name="CREDIT SPREAD"
-              step=".1"
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="mb-10">
-            <h4 className="font-bold text-gray-600 dark:text-gray-300">
-              OPR Movement
-            </h4>
-            <input
-              className="w-full p-3 mt-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-700 dark:focus:ring-gray-500 dark:border-gray-700 dark:bg-gray-900"
-              type="number"
-              name="OPR MOVEMENT"
-              step=".1"
+              placeholder="This is just for reference"
+              autoComplete="off"
               onChange={handleChange}
               required
             />
@@ -220,9 +110,136 @@ const Robot: NextPage = () => {
               <option value="AAA IS">AAA IS</option>
             </select>
           </div>
+          <div className="mb-10">
+            <h4 className="font-bold text-gray-600 dark:text-gray-300">
+              Accrued Interest
+            </h4>
+            <input
+              className="w-full p-3 mt-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-700 dark:focus:ring-gray-500 dark:border-gray-700 dark:bg-gray-900"
+              type="number"
+              name="AINTEREST"
+              step=".1"
+              placeholder="Input a number"
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="mb-10">
+            <h4 className="font-bold text-gray-600 dark:text-gray-300">
+              Coupon Frequency
+            </h4>
+            <input
+              className="w-full p-3 mt-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-700 dark:focus:ring-gray-500 dark:border-gray-700 dark:bg-gray-900"
+              type="number"
+              name="COUPON FREQUENCY"
+              step=".1"
+              placeholder="Input a number"
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="mb-10">
+            <h4 className="font-bold text-gray-600 dark:text-gray-300">
+              Eval Mid Price
+            </h4>
+            <input
+              className="w-full p-3 mt-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-700 dark:focus:ring-gray-500 dark:border-gray-700 dark:bg-gray-900"
+              type="number"
+              name="EVAL MID PRICE"
+              step=".1"
+              placeholder="Input a number"
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="mb-10">
+            <h4 className="font-bold text-gray-600 dark:text-gray-300">
+              Eval Mid Yield
+            </h4>
+            <input
+              className="w-full p-3 mt-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-700 dark:focus:ring-gray-500 dark:border-gray-700 dark:bg-gray-900"
+              type="number"
+              name="EVAL MID YIELD"
+              step=".1"
+              placeholder="Input a number"
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="mb-10">
+            <h4 className="font-bold text-gray-600 dark:text-gray-300">
+              Modified Duration
+            </h4>
+            <input
+              className="w-full p-3 mt-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-700 dark:focus:ring-gray-500 dark:border-gray-700 dark:bg-gray-900"
+              type="number"
+              name="MODIFIED DURATION"
+              step=".1"
+              placeholder="Input a number"
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="mb-10">
+            <h4 className="font-bold text-gray-600 dark:text-gray-300">
+              Next Coupon Rate
+            </h4>
+            <input
+              className="w-full p-3 mt-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-700 dark:focus:ring-gray-500 dark:border-gray-700 dark:bg-gray-900"
+              type="number"
+              name="NEXT COUPON RATE"
+              step=".1"
+              placeholder="Input a number"
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="mb-10">
+            <h4 className="font-bold text-gray-600 dark:text-gray-300">
+              Maturity Date
+            </h4>
+            <input
+              className="w-full p-3 mt-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-700 dark:focus:ring-gray-500 dark:border-gray-700 dark:bg-gray-900"
+              type="date"
+              name="DAYS TO MATURITY"
+              min={`${current.toISOString().slice(0, 10)}`}
+              defaultValue={`${current.toISOString().slice(0, 10)}`}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="mb-10">
+            <h4 className="font-bold text-gray-600 dark:text-gray-300">
+              Credit Spread
+            </h4>
+            <input
+              className="w-full p-3 mt-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-700 dark:focus:ring-gray-500 dark:border-gray-700 dark:bg-gray-900"
+              type="number"
+              name="CREDIT SPREAD"
+              step=".1"
+              placeholder="Input a number"
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="mb-10">
+            <h4 className="font-bold text-gray-600 dark:text-gray-300">
+              OPR Movement
+            </h4>
+            <input
+              className="w-full p-3 mt-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-700 dark:focus:ring-gray-500 dark:border-gray-700 dark:bg-gray-900"
+              type="number"
+              name="OPR MOVEMENT"
+              step=".01"
+              placeholder="1.75"
+              onChange={handleChange}
+              required
+            />
+          </div>
+
           <div className="w-full col-span-2">
             <button
-              className="w-full px-4 py-2 border rounded-md dark:border-gray-700"
+              className="w-full px-4 py-2 text-white border rounded-md dark:border-gray-700 bg-primary-100 hover:bg-primary-300 hover:text-black"
               type="submit"
             >
               Predict
@@ -230,11 +247,15 @@ const Robot: NextPage = () => {
           </div>
         </form>
         {nextMonthBondPrice !== 0 && (
-          <div className="fixed top-0 left-0 flex items-center justify-center w-full h-full">
-            <div className="relative flex items-center justify-center p-20 text-center bg-white rounded shadow-2xl dark:bg-gray-900">
+          <div className="fixed top-0 left-0 flex items-center justify-center w-full h-full bg-gray-200 bg-opacity-30 dark:bg-black dark:bg-opacity-25">
+            <div className="relative flex items-center justify-center p-20 text-center bg-black rounded-lg shadow-2xl text-gray-50 dark:bg-gray-50 dark:text-black">
               <h3>
                 {nextMonthBondPrice > 0
-                  ? `Next Month Bond Price: ${nextMonthBondPrice}`
+                  ? `Next Month Bond Price: RM ${
+                      Math.round(
+                        (Number(nextMonthBondPrice) + Number.EPSILON) * 100
+                      ) / 100
+                    }`
                   : "Please input a valid data"}
               </h3>
               <button
