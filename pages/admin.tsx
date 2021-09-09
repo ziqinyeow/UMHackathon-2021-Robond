@@ -26,7 +26,9 @@ const Admin: NextPage = ({
   const [access, setAccess] = useState(false);
   const [fileName, setFileName] = useState<string[]>();
   const [files, setFiles] = useState<FileList | File[] | null>();
+  const [retraining, setRetraining] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [uploaded, setUploaded] = useState(false);
   const router = useRouter();
   const refreshData = () => {
     router.replace(router.asPath);
@@ -88,32 +90,58 @@ const Admin: NextPage = ({
             </div>
           </div>
           <div className="w-full mb-16">
-            <button
-              type="button"
-              className="w-full px-4 py-3 border-2 rounded-md dark:border-gray-700"
-              onClick={async () => {
-                // @ts-ignore
-                await fetch(process.env.NEXT_PUBLIC_RETRAIN_URL, {
-                  method: "POST",
-                });
-              }}
-            >
-              Retrain the AI Model
-            </button>
-          </div>
-          <h4 className="mb-6 font-bold">AI Model Data</h4>
-          <div className="grid w-full grid-cols-1 gap-5 mb-24 md:grid-cols-2">
-            <div>
-              {uploading ? (
-                <div className="flex flex-col items-center justify-center h-90">
-                  <Loader
-                    type="TailSpin"
-                    color="black"
-                    height={100}
-                    width={50}
-                  />
+            {!retraining ? (
+              <div className="grid gap-5 md:grid-cols-3">
+                <div />
+                <div />
+                <div>
+                  <button
+                    type="button"
+                    className="w-full px-4 py-3 text-white bg-black border-2 rounded-md dark:border-gray-700 dark:bg-white dark:text-black"
+                    onClick={async () => {
+                      // @ts-ignore
+                      await fetch(process.env.NEXT_PUBLIC_RETRAIN_URL, {
+                        method: "POST",
+                      });
+                      setRetraining(true);
+                    }}
+                  >
+                    Retrain the AI Model
+                  </button>
+                  <div className="p-2 text-sm tracking-wider">
+                    Note: Please do not press this unintentionally. This may
+                    cause some backend errors.
+                  </div>
                 </div>
-              ) : (
+              </div>
+            ) : (
+              <div className="flex flex-col items-center justify-center">
+                <Loader type="TailSpin" color="black" height={100} width={50} />
+                <div>
+                  The model is being retrain right now. This will take 5 - 10
+                  mins, but you may leave the page.
+                </div>
+              </div>
+            )}
+          </div>
+          <h4 className="mb-2 font-bold">AI Model Data</h4>
+          {!uploaded ? (
+            <div className="w-full p-4 mb-4 bg-gray-100 rounded-md dark:bg-gray-800">
+              Note: Please input 2 files (BPAMERP & BPAMERS .csv file) directly
+              at the input section and press upload to blob.
+            </div>
+          ) : (
+            <div className="w-full p-4 mb-4 bg-green-100 rounded-md dark:bg-green-400 dark:text-black">
+              🎉 Successfully uploaded.
+            </div>
+          )}
+          {uploading ? (
+            <div className="flex flex-col items-center justify-center w-full mb-24 h-90">
+              <Loader type="TailSpin" color="black" height={100} width={50} />
+            </div>
+          ) : (
+            <div className="grid w-full grid-cols-1 gap-5 mb-24 md:grid-cols-2">
+              <div>
                 <div
                   onDragOver={(e) => {
                     e.preventDefault();
@@ -187,85 +215,86 @@ const Admin: NextPage = ({
                     </p>
                   </div>
                 </div>
-              )}
-            </div>
-            <form
-              onSubmit={async (e) => {
-                e.preventDefault();
-                setUploading(true);
-                await uploadFilesToAzureContainer(files);
-                setUploading(false);
-                // post request
-                refreshData();
-              }}
-            >
-              <div className="px-6 pt-5 pb-6 mt-1 border-2 border-gray-300 border-dashed rounded-md dark:border-gray-700">
-                <h4 className="font-bold">File</h4>
-                {!files && (
-                  <div className="flex flex-col items-center justify-center w-full p-4 mt-3 text-gray-400">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      width="36"
-                      height="36"
-                      className="mb-2"
-                    >
-                      <path fill="none" d="M0 0h24v24H0z" />
-                      <path
-                        fill="currentColor"
-                        d="M11 15h2v2h-2v-2zm2-1.645V14h-2v-1.5a1 1 0 0 1 1-1 1.5 1.5 0 1 0-1.471-1.794l-1.962-.393A3.501 3.501 0 1 1 13 13.355zM15 4H5v16h14V8h-4V4zM3 2.992C3 2.444 3.447 2 3.999 2H16l5 5v13.993A1 1 0 0 1 20.007 22H3.993A1 1 0 0 1 3 21.008V2.992z"
-                      />
-                    </svg>
-                    No file Uploaded
-                  </div>
-                )}
-                {fileName?.length === 1 && (
-                  <div className="mt-1 mb-3">
-                    Please input 2 .csv files (BPAMERP & BPAMERS) directly
-                  </div>
-                )}
-                {files && (
-                  <div>
-                    {fileName?.map((file) => (
-                      <div
-                        key={file}
-                        className="flex items-center justify-between py-2"
+              </div>
+              <form
+                onSubmit={async (e) => {
+                  e.preventDefault();
+                  setUploaded(true);
+                  setUploading(true);
+                  await uploadFilesToAzureContainer(files);
+                  setUploading(false);
+                  refreshData();
+                }}
+              >
+                <div className="px-6 pt-5 pb-6 mt-1 border-2 border-gray-300 border-dashed rounded-md dark:border-gray-700">
+                  <h4 className="font-bold">File</h4>
+                  {!files && (
+                    <div className="flex flex-col items-center justify-center w-full p-4 mt-3 text-gray-400">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        width="36"
+                        height="36"
+                        className="mb-2"
                       >
-                        <h4>{file}</h4>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-              <div className="grid grid-cols-2 mt-7 gap-7">
-                <button
-                  type="submit"
-                  className="px-3 py-2 border dark:border-gray-700"
-                  disabled={
-                    !files ||
-                    files?.length !== 2 ||
-                    fileName?.every(
-                      (f) => !f.includes("BPAMER") || !f.includes(".csv")
-                    )
-                  }
-                >
-                  Upload to Blob
-                </button>
-                {/* eslint-disable-next-line react/button-has-type */}
-                <button
-                  type="reset"
-                  className="px-3 py-2 border dark:border-gray-700"
-                  onClick={async (e) => {
-                    e.preventDefault();
-                    setFileName([]);
-                    setFiles(null);
-                  }}
-                >
-                  Reset
-                </button>
-              </div>
-            </form>
-          </div>
+                        <path fill="none" d="M0 0h24v24H0z" />
+                        <path
+                          fill="currentColor"
+                          d="M11 15h2v2h-2v-2zm2-1.645V14h-2v-1.5a1 1 0 0 1 1-1 1.5 1.5 0 1 0-1.471-1.794l-1.962-.393A3.501 3.501 0 1 1 13 13.355zM15 4H5v16h14V8h-4V4zM3 2.992C3 2.444 3.447 2 3.999 2H16l5 5v13.993A1 1 0 0 1 20.007 22H3.993A1 1 0 0 1 3 21.008V2.992z"
+                        />
+                      </svg>
+                      No file Uploaded
+                    </div>
+                  )}
+                  {fileName?.length === 1 && (
+                    <div className="mt-1 mb-3">
+                      Please input 2 .csv files (BPAMERP & BPAMERS) directly
+                    </div>
+                  )}
+                  {files && (
+                    <div>
+                      {fileName?.map((file) => (
+                        <div
+                          key={file}
+                          className="flex items-center justify-between py-2"
+                        >
+                          <h4>{file}</h4>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+                <div className="grid grid-cols-2 mt-7 gap-7">
+                  <button
+                    type="submit"
+                    className="px-3 py-2 text-white bg-black border-2 rounded-md dark:border-gray-700 dark:bg-white dark:text-black"
+                    disabled={
+                      !files ||
+                      files?.length !== 2 ||
+                      fileName?.every(
+                        (f) => !f.includes("BPAMER") || !f.includes(".csv")
+                      )
+                    }
+                  >
+                    Upload to Blob
+                  </button>
+                  {/* eslint-disable-next-line react/button-has-type */}
+                  <button
+                    type="reset"
+                    className="px-3 py-2 border dark:border-gray-700"
+                    onClick={async (e) => {
+                      e.preventDefault();
+                      setFileName([]);
+                      setFiles(null);
+                      setUploaded(false);
+                    }}
+                  >
+                    Reset
+                  </button>
+                </div>
+              </form>
+            </div>
+          )}
           <div className="w-full mb-20">
             <h4 className="mb-6 font-bold">Output Data</h4>
             <div className="grid w-full gap-4 md:grid-cols-2">

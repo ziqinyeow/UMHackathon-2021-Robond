@@ -104,9 +104,8 @@ const Analytics: NextPage<Props> = ({
               Bond Return Per Volatility Ratio:
             </h3>
             <h2>
-              {Math.round(
-                (Number(result?.VOLATILITY) + Number.EPSILON) * 100000
-              ) / 100000}
+              {Math.round((Number(result?.RATIO) + Number.EPSILON) * 100000) /
+                100000}
               <span className="text-xl md:text-2xl">%</span>
             </h2>
           </div>

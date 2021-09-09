@@ -1,14 +1,8 @@
 import type { GetServerSideProps, NextPage } from "next";
 import Link from "next/link";
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-import Image from "next/image";
 import { getBond } from "lib/data";
-import Dell from "@/public/static/Dell.jpg";
-import Fusionex from "@/public/static/Fusionex.png";
-import Swift from "@/public/static/Swift.jpg";
 import BasicLayout from "@/layouts/BasicLayout";
 import OPRCard from "@/components/OPRCard";
-// import Banner from "@/components/Banner";
 
 const meta = {
   title: "Robond - Home",
@@ -181,57 +175,41 @@ const Home: NextPage<Props> = ({ processedMonth, result }) => {
               </div>
               <div>
                 <h4 className="mb-3 font-bold text-primary-100 dark:text-primary-300">
-                  Sponsors
+                  Try Our APIs
                 </h4>
-                <a
-                  href="https://www.dell.com/en-my"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <div className="relative w-full h-32 mb-3 border-2 rounded-md dark:border-opacity-10">
-                    <Image
-                      className="rounded-md"
-                      src={Dell}
-                      alt="Dell"
-                      objectFit="cover"
-                      layout="fill"
-                    />
-                  </div>
-                </a>
-              </div>
-              <div>
-                <a
-                  href="https://www.fusionex-international.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <div className="relative w-full h-32 mb-3 border-2 rounded-md dark:border-opacity-10">
-                    <Image
-                      className="rounded-md"
-                      src={Fusionex}
-                      alt="Fusionex"
-                      objectFit="cover"
-                      layout="fill"
-                    />
-                  </div>
-                </a>
-              </div>
-              <div>
-                <a
-                  href="https://www.swift.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <div className="relative w-full mb-3 border-2 rounded-md h-28 dark:border-opacity-10">
-                    <Image
-                      className="rounded-md"
-                      src={Swift}
-                      alt="Swift"
-                      objectFit="cover"
-                      layout="fill"
-                    />
-                  </div>
-                </a>
+                <div className="p-4 mb-5 border-2 rounded-md dark:border-gray-700">
+                  <h5 className="mb-2 font-medium">
+                    <strong>/api/data</strong> -{" "}
+                    <span className="p-1 border rounded dark:border-gray-700">
+                      POST
+                    </span>
+                  </h5>
+                  <h5>
+                    returnType: All or (any number) or (stock code) in string
+                  </h5>
+                </div>
+                <div className="p-4 mb-5 border-2 rounded-md dark:border-gray-700">
+                  <h5 className="mb-2 font-medium">
+                    <strong>/api/predict</strong> -{" "}
+                    <span className="p-1 border rounded dark:border-gray-700">
+                      POST
+                    </span>
+                  </h5>
+                  <h5>
+                    An array of JSON (string) with STOCK CODE, AINTEREST, COUPON
+                    FREQUENCY, EVAL MID PRICE, EVAL MID YIELD, MODIFIED
+                    DURATION, NEXT COUPON RATE, DAYS TO MATURITY, CREDIT SPREAD,
+                    OPR MOVEMENT, RATING
+                  </h5>
+                </div>
+                <div className="p-4 mb-5 border-2 rounded-md dark:border-gray-700">
+                  <h5 className="mb-2 font-medium">
+                    <strong>/api/opr</strong> -{" "}
+                    <span className="p-1 border rounded dark:border-gray-700">
+                      GET
+                    </span>
+                  </h5>
+                </div>
               </div>
             </div>
           </div>
