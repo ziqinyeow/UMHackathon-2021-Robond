@@ -1,16 +1,8 @@
-import Link from "next/link";
-
 const Footer = () => {
   return (
     <div className="flex items-center justify-between w-full pt-12 pb-8 text-gray-500 border-t dark:border-gray-700 dark:text-gray-300">
       <div>
-        <h5>
-          Made with{" "}
-          <Link href="/feedback">
-            <a className="select-none">❤</a>
-          </Link>{" "}
-          in Malaysia and worldwide
-        </h5>
+        <h5>Made with ❤ by TEAM JOM in Malaysia</h5>
       </div>
       <div className="flex">
         <div className="p-1 mx-2 rounded hover:bg-gray-100 dark:hover:bg-transparent">
@@ -23,11 +15,36 @@ const Footer = () => {
               xmlns="http://www.w3.org/2000/svg"
               width="24"
               height="24"
+              viewBox="0 0 24 24"
               className="font-medium text-gray-500 hover:text-gray-800 dark:text-gray-300 dark:hover:text-gray-100"
             >
               <path
                 fill="currentColor"
-                d="M12.026 2c-5.509 0-9.974 4.465-9.974 9.974 0 4.406 2.857 8.145 6.821 9.465.499.09.679-.217.679-.481 0-.237-.008-.865-.011-1.696-2.775.602-3.361-1.338-3.361-1.338-.452-1.152-1.107-1.459-1.107-1.459-.905-.619.069-.605.069-.605 1.002.07 1.527 1.028 1.527 1.028.89 1.524 2.336 1.084 2.902.829.091-.645.351-1.085.635-1.334-2.214-.251-4.542-1.107-4.542-4.93 0-1.087.389-1.979 1.024-2.675-.101-.253-.446-1.268.099-2.64 0 0 .837-.269 2.742 1.021a9.582 9.582 0 012.496-.336 9.554 9.554 0 012.496.336c1.906-1.291 2.742-1.021 2.742-1.021.545 1.372.203 2.387.099 2.64.64.696 1.024 1.587 1.024 2.675 0 3.833-2.33 4.675-4.552 4.922.355.308.675.916.675 1.846 0 1.334-.012 2.41-.012 2.737 0 .267.178.577.687.479C19.146 20.115 22 16.379 22 11.974 22 6.465 17.535 2 12.026 2z"
+                d="M20 3H4c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V5c0-1.103-.897-2-2-2zM4 19V7h16l.002 12H4z"
+              />
+              <path
+                fill="currentColor"
+                d="M9.293 9.293 5.586 13l3.707 3.707 1.414-1.414L8.414 13l2.293-2.293zm5.414 0-1.414 1.414L15.586 13l-2.293 2.293 1.414 1.414L18.414 13z"
+              />
+            </svg>
+          </a>
+        </div>
+        <div className="p-1 mx-2 rounded hover:bg-gray-100 dark:hover:bg-transparent">
+          <a
+            href="https://github.com/chunfang2001/RobondAzure"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              className="font-medium text-gray-500 hover:text-gray-800 dark:text-gray-300 dark:hover:text-gray-100"
+            >
+              <path
+                fill="currentColor"
+                d="M21 10.975V8a2 2 0 0 0-2-2h-6V4.688c.305-.274.5-.668.5-1.11a1.5 1.5 0 0 0-3 0c0 .442.195.836.5 1.11V6H5a2 2 0 0 0-2 2v2.998l-.072.005A.999.999 0 0 0 2 12v2a1 1 0 0 0 1 1v5a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5a1 1 0 0 0 1-1v-1.938a1.004 1.004 0 0 0-.072-.455c-.202-.488-.635-.605-.928-.632zM7 12c0-1.104.672-2 1.5-2s1.5.896 1.5 2-.672 2-1.5 2S7 13.104 7 12zm8.998 6c-1.001-.003-7.997 0-7.998 0v-2s7.001-.002 8.002 0l-.004 2zm-.498-4c-.828 0-1.5-.896-1.5-2s.672-2 1.5-2 1.5.896 1.5 2-.672 2-1.5 2z"
               />
             </svg>
           </a>

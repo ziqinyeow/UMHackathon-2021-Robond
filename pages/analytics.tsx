@@ -60,10 +60,7 @@ const Analytics: NextPage<Props> = ({ processedMonth, result }) => {
         {filterData.length === 0 ? (
           <div>
             <div>Bond not found.</div>
-            <div>
-              You can try to type your stock code in the url.
-              (/analytics/your_stock_code)
-            </div>
+            <div>You can try with our API to retrieve the data</div>
           </div>
         ) : (
           <div className="relative w-full mb-10">
