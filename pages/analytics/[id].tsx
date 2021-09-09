@@ -96,7 +96,6 @@ const Analytics: NextPage<Props> = ({
               {Math.round(
                 (Number(result?.VOLATILITY) + Number.EPSILON) * 100000
               ) / 100000}
-              <span className="text-xl md:text-2xl">%</span>
             </h2>
           </div>
           <div className="flex flex-col justify-between p-6 border rounded-md dark:border-gray-700">
@@ -106,7 +105,6 @@ const Analytics: NextPage<Props> = ({
             <h2>
               {Math.round((Number(result?.RATIO) + Number.EPSILON) * 100000) /
                 100000}
-              <span className="text-xl md:text-2xl">%</span>
             </h2>
           </div>
           <div className="p-6 border rounded-md dark:border-gray-700">

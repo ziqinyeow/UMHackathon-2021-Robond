@@ -103,7 +103,17 @@ export const getThreeLatestAzureBlobFileName: any = async () => {
       blobItem = await iter.next();
     }
     const filtered = fileName.filter((f) => f.includes("output")).sort();
-    return filtered.slice(filtered.length - 3);
+
+    const first = filtered.slice(filtered.length - 3)[0];
+    const processedFirst = first.slice(7, 13);
+    const second = filtered.slice(filtered.length - 3)[1];
+    const processedSecond = second.slice(7, 13);
+
+    if (processedFirst === processedSecond) {
+      return filtered.slice(filtered.length - 3);
+    }
+
+    return filtered.slice(filtered.length - 5, filtered.length - 2);
   } catch (error) {
     return error;
   }

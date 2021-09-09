@@ -40,7 +40,7 @@ const Home: NextPage<Props> = ({ processedMonth, result }) => {
               <div className="flex justify-between mb-5">
                 <h4 className="font-bold text-primary-100 dark:text-primary-300">
                   Trending Bond{" "}
-                  <span className="text-gray-300 dark:text-gray-500">
+                  <span className="text-gray-700 dark:text-gray-300">
                     in {processedMonth}
                   </span>
                 </h4>
@@ -109,21 +109,19 @@ const Home: NextPage<Props> = ({ processedMonth, result }) => {
                               ) / 100000
                             ) : (
                               <span>--</span>
-                            )}{" "}
-                            %
+                            )}
                           </h4>
                         </div>
                         <div className="flex">
                           <h4 className="pr-4">Volatility Ratio:</h4>
                           <h4>
-                            {res?.VOLATILITY ? (
+                            {res?.RATIO ? (
                               Math.round(
                                 (Number(res?.RATIO) + Number.EPSILON) * 1000
                               ) / 1000
                             ) : (
                               <span>--</span>
-                            )}{" "}
-                            %
+                            )}
                           </h4>
                         </div>
                       </div>
