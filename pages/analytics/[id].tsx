@@ -68,16 +68,17 @@ const Analytics: NextPage<Props> = ({
             <h3 className="mb-3 font-semibold">Bond Price:</h3>
             <h1>
               <span className="text-2xl font-bold md:text-3xl">RM </span>
-              {Math.round((Number(result?.PREDICTION) + Number.EPSILON) * 100) /
-                100}
+              {Math.round(
+                (Number(result?.PREDICTION) + Number.EPSILON) * 1000
+              ) / 1000}
             </h1>
             <h6>
               {Math.round(
                 (Number(result?.PREDICTION) -
                   Number(result?.["EVAL MID PRICE"]) +
                   Number.EPSILON) *
-                  100
-              ) / 100}{" "}
+                  1000
+              ) / 1000}{" "}
               compared to last month
             </h6>
           </div>
@@ -86,7 +87,7 @@ const Analytics: NextPage<Props> = ({
             <h2>
               {Math.round(
                 (Number(result?.["BOND RETURN"]) + Number.EPSILON) * 100000
-              ) / 100000}
+              ) / 1000}
               <span className="text-xl md:text-2xl">%</span>
             </h2>
           </div>

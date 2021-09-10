@@ -95,13 +95,13 @@ const Analytics: NextPage<Props> = ({ processedMonth, result }) => {
                 </h5>
                 <h5 className="col-span-2 break-all">{d?.["STOCK CODE"]}</h5>
                 <h5 className="col-span-2 break-all">
-                  {Math.round((Number(d?.PREDICTION) + Number.EPSILON) * 100) /
-                    100}
+                  {Math.round((Number(d?.PREDICTION) + Number.EPSILON) * 1000) /
+                    1000}
                 </h5>
                 <h5 className="col-span-2 break-all">
                   {Math.round(
                     (Number(d?.["BOND RETURN"]) + Number.EPSILON) * 10000
-                  ) / 10000}
+                  ) / 100}
                 </h5>
               </div>
             </a>

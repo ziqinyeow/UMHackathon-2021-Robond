@@ -91,7 +91,7 @@ const Home: NextPage<Props> = ({ processedMonth, result }) => {
                                   (Number(res?.["BOND RETURN"]) +
                                     Number.EPSILON) *
                                     100000
-                                ) / 100000}{" "}
+                                ) / 1000}{" "}
                                 %
                               </span>
                             ) : (
