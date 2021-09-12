@@ -3,6 +3,7 @@ import Link from "next/link";
 import { getBond } from "lib/data";
 import BasicLayout from "@/layouts/BasicLayout";
 import OPRCard from "@/components/OPRCard";
+import SchoolPride from "@/components/Firework";
 
 const meta = {
   title: "Robond - Home",
@@ -33,6 +34,9 @@ type DataType = {
 const Home: NextPage<Props> = ({ processedMonth, result }) => {
   return (
     <div>
+      <div>
+        <SchoolPride />
+      </div>
       <BasicLayout meta={meta}>
         <div className="layout">
           <div className="w-full grid-cols-5 gap-6 mb-6 xl:gap-8 sm:grid">
